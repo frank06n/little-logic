@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../config/firebase';
+import { authService } from '../services/firebase';
 import { Teacher } from '../types';
-import { authAPI } from '../services/api';
 
 interface AuthContextType {
   teacher: Teacher | null;
@@ -25,23 +27,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing auth token on app load
-    const token = localStorage.getItem('authToken');
-    const storedTeacher = localStorage.getItem('teacher');
-    
-    if (token && storedTeacher) {
-      setTeacher(JSON.parse(storedTeacher));
-    }
-    
-    setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setTeacher({
+          _id: user.uid,
+          name: user.displayName || '',
+          email: user.email || '',
+          password: ''
+        });
+      } else {
+        setTeacher(null);
+      }
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await authAPI.login(email, password);
-      localStorage.setItem('authToken', response.token);
-      localStorage.setItem('teacher', JSON.stringify(response.teacher));
-      setTeacher(response.teacher);
+      await authService.login(email, password);
+      // Teacher state will be updated by onAuthStateChanged
     } catch (error) {
       throw error;
     }
@@ -49,19 +55,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (name: string, email: string, password: string) => {
     try {
-      const response = await authAPI.register(name, email, password);
-      localStorage.setItem('authToken', response.token);
-      localStorage.setItem('teacher', JSON.stringify(response.teacher));
-      setTeacher(response.teacher);
+      await authService.register(name, email, password);
+      // Teacher state will be updated by onAuthStateChanged
     } catch (error) {
       throw error;
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('teacher');
-    setTeacher(null);
+  const logout = async () => {
+    try {
+      await authService.logout();
+      // Teacher state will be updated by onAuthStateChanged
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   const value = {

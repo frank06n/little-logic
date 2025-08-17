@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Student, School } from '../types';
-import { studentsAPI, schoolAPI } from '../services/api';
+import { studentsService, schoolService } from '../services/firebase';
 import StudentList from './StudentList';
 import StudentForm from './StudentForm';
 import CertificateViewer from './CertificateViewer';
@@ -29,8 +29,8 @@ const Dashboard: React.FC = () => {
   const loadData = async () => {
     try {
       const [studentsData, schoolData] = await Promise.all([
-        studentsAPI.getAll(),
-        schoolAPI.get()
+        studentsService.getAll(),
+        schoolService.get()
       ]);
       setStudents(studentsData);
       setSchool(schoolData);
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
 
   const handleAddStudent = async (studentData: Omit<Student, '_id'>) => {
     try {
-      const newStudent = await studentsAPI.create(studentData);
+      const newStudent = await studentsService.create(studentData);
       setStudents([...students, newStudent]);
       setActiveView('list');
     } catch (error) {
@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
 
   const handleEditStudent = async (id: string, studentData: Partial<Student>) => {
     try {
-      const updatedStudent = await studentsAPI.update(id, studentData);
+      const updatedStudent = await studentsService.update(id, studentData);
       setStudents(students.map(s => s._id === id ? updatedStudent : s));
       setActiveView('list');
       setSelectedStudent(null);
@@ -65,7 +65,7 @@ const Dashboard: React.FC = () => {
   const handleDeleteStudent = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this student?')) {
       try {
-        await studentsAPI.delete(id);
+        await studentsService.delete(id);
         setStudents(students.filter(s => s._id !== id));
       } catch (error) {
         console.error('Error deleting student:', error);
@@ -85,7 +85,7 @@ const Dashboard: React.FC = () => {
 
   const handleSchoolUpdate = async (schoolData: School) => {
     try {
-      const updatedSchool = await schoolAPI.update(schoolData);
+      const updatedSchool = await schoolService.update(schoolData);
       setSchool(updatedSchool);
       setActiveView('list');
     } catch (error) {

@@ -23,7 +23,8 @@ const Login: React.FC = () => {
         await login(email, password);
       }
     } catch (error: any) {
-      setError(error.response?.data?.message || 'Authentication failed');
+      // setError(error.response?.data?.message || 'Authentication failed');
+      setError(JSON.stringify(error));
     } finally {
       setIsLoading(false);
     }
@@ -110,6 +111,13 @@ const Login: React.FC = () => {
             {isLoading ? 'Loading...' : (isRegister ? 'Create Account' : 'Sign In')}
           </button>
         </form>
+
+        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <h4 className="text-sm font-medium text-blue-900 mb-2">Firebase Setup Required</h4>
+          <p className="text-xs text-blue-700">
+            Please configure Firebase by copying .env.example to .env.local and adding your Firebase project credentials.
+          </p>
+        </div>
 
         <div className="mt-6 text-center">
           <button
