@@ -149,6 +149,55 @@ export function generateCertificate(data: CertificateData): string {
 
 <head>
     <style>
+        /* Algerian (only regular provided) */
+
+        @font-face {
+            font-family: "Algerian";
+            src: url("/fonts/algerian.ttf") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Calibri Regular */
+        @font-face {
+            font-family: "Calibri";
+            src: url("/fonts/calibri-regular.ttf") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Calibri Italic */
+        @font-face {
+            font-family: "Calibri";
+            src: url("/fonts/calibri-italic.ttf") format("truetype");
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* Calibri Bold */
+        @font-face {
+            font-family: "Calibri";
+            src: url("/fonts/calibri-bold.ttf") format("truetype");
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* Calibri Bold Italic */
+        @font-face {
+            font-family: "Calibri";
+            src: url("/fonts/calibri-bold-italic.ttf") format("truetype");
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        /* Cambria (only one provided → treat as regular) */
+        @font-face {
+            font-family: "Cambria";
+            src: url("/fonts/cambria.ttf") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
         html {
             font-size: __FONTSIZE__;
         }
