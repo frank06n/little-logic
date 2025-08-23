@@ -74,21 +74,22 @@ function generateCertificateStructure(data: CertificateData): string {
     const dobStr = formatDate(data.dob);
     const dobText = dobToText(data.dob);
 
-    const leavingDateStr = data.leavingDate ? formatDate(data.leavingDate) : "Not Applicable";
-    const classLine = data.leavingDate
-        ? `was passed in class <b>${data.currentClass}</b>`
-        : `is reading in class <b>${data.currentClass}</b>`;
+    const schoolAddress = `VILL : ${data.village}, P.O.+P.S. : ${data.policeStation}, DIST. : ${data.district}, PIN : ${data.pin}`.toUpperCase();
 
+    const leavingDateStr = data.leavingDate ? formatDate(data.leavingDate) : "Not Applicable";
+    const wasOrIs = data.leavingDate ? 'was' : 'is';
+    const passedOrReading = data.leavingDate ?'passed' :'reading';
+    
     // Pronouns
     const pronouns = data.gender === "male"
-        ? { he: "He", him: "him", his: "his" }
-        : { he: "She", him: "her", his: "her" };
+        ? { he: "He", him: "him", his: "his", son: "Son" }
+        : { he: "She", him: "her", his: "her", son: "Daughter" };
 
     return `
+<div class="logo-container">
+  <img src="${data.logoUrl}" />
+</div>
 <main>
-  <div class="logo-container">
-    <img src="${data.logoUrl}" />
-  </div>
   <section>
     <div class="header">
       <span>DISE CODE : ${data.diseCode}</span>
@@ -104,7 +105,7 @@ function generateCertificateStructure(data: CertificateData): string {
       (Under ${data.circle})
     </div>
     <div class="address">
-      VILL : ${data.village}, P.O.+P.S. : ${data.policeStation}, DIST. : ${data.district}, PIN : ${data.pin}
+      ${schoolAddress}
     </div>
     <div class="subtitle">
       TO WHOM IT MAY CONCERN
@@ -112,15 +113,15 @@ function generateCertificateStructure(data: CertificateData): string {
     <div class="content">
       <div>
         <span class="fw">This</span> is to certify that <b>${data.studentName}</b>
-        Son of <b>${data.fatherName}</b> Vill : ${data.village}, P.O. &amp;
+        ${pronouns.son} of <b>${data.fatherName}</b> Vill : ${data.village}, P.O. &amp;
         P.S : ${data.policeStation}, Dist. : ${data.district}. ${pronouns.he} was admitted in this school on
-        <b>${admissionDateStr}</b> in class <b>${data.admissionClass}</b>. ${pronouns.he} ${classLine}.
+        <b>${admissionDateStr}</b> in class <b>${data.admissionClass}</b>. ${pronouns.he} ${wasOrIs} ${passedOrReading} in class <b>${data.currentClass}</b>.
         According to the admission register ${pronouns.his}
         date of birth is <b>${dobText} ( ${dobStr} )</b>
       </div>
       <div>
-        <span class="fw">${pronouns.his.charAt(0).toUpperCase() + pronouns.his.slice(1)}</span> conduct at school is ${data.conduct}. So far as I know
-        ${pronouns.he.toLowerCase()} bears a ${data.character}.
+        <span class="fw">${pronouns.his.charAt(0).toUpperCase() + pronouns.his.slice(1)}</span> conduct at school ${wasOrIs} satisfactory. So far as I know
+        ${pronouns.he.toLowerCase()} bears a good moral character.
       </div>
       <div>
         <span class="fw">I</span> wish ${pronouns.him} every success in life.
@@ -199,7 +200,7 @@ export function generateCertificate(data: CertificateData): string {
         }
 
         html {
-            font-size: __FONTSIZE__;
+            font-size: 125%;
         }
 
         body {
@@ -220,18 +221,16 @@ export function generateCertificate(data: CertificateData): string {
         main {
             flex: 1;
             display: flex;
-            padding: 1rem;
-
+            padding: 3.4rem;
         }
 
         section {
             display: flex;
             flex-direction: column;
-            padding: 1rem 0.5rem;
-            border: double 4px #1F3863;
+            padding: 1rem 0rem;
             font-family: 'Cambria';
             font-style: italic;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .logo-container {
@@ -245,8 +244,6 @@ export function generateCertificate(data: CertificateData): string {
 
         img {
             width: 100%;
-            aspect-ratio: 1;
-            opacity: 0.2;
             z-index: -1;
         }
 
@@ -263,7 +260,7 @@ export function generateCertificate(data: CertificateData): string {
             font-style: normal;
             align-self: center;
             color: #001F5F;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             margin: 0.5rem 0;
         }
 
@@ -288,13 +285,15 @@ export function generateCertificate(data: CertificateData): string {
 
         .address {
             font-style: normal;
-            align-self: center;
+            font-weight: bold;
+            align-self: stretch;
+            text-align: center;
             background-color: #001F5F;
             color: white;
-            padding: 0.3rem 0.6rem;
+            padding: 0.3rem 0rem;
             border-radius: 0.2rem;
             border: solid 2px #315C8D;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .subtitle {
