@@ -227,7 +227,8 @@ export function generateCertificate(data: CertificateData): string {
         section {
             display: flex;
             flex-direction: column;
-            padding: 1rem 0rem;
+            padding-top: 0.5rem;
+            padding-bottom: 1rem;
             font-family: 'Cambria';
             font-style: italic;
             font-size: 1.1rem;
@@ -261,7 +262,7 @@ export function generateCertificate(data: CertificateData): string {
             align-self: center;
             color: #001F5F;
             font-size: 2.3rem;
-            margin: 0.5rem 0;
+            margin-bottom: 0.5rem;
         }
 
         .established {
@@ -271,6 +272,7 @@ export function generateCertificate(data: CertificateData): string {
             font-style: normal;
             align-self: center;
             padding: 0.4rem 0.8rem;
+            margin-top: 1rem;
             border-radius: 0.6rem;
             border: solid 2px black;
         }
@@ -280,7 +282,8 @@ export function generateCertificate(data: CertificateData): string {
             font-style: normal;
             align-self: center;
             font-size: 1.2rem;
-            padding: 0.4rem 0;
+            padding-top: 0.75rem;
+            padding-bottom: 1.25rem;
         }
 
         .address {
@@ -304,7 +307,7 @@ export function generateCertificate(data: CertificateData): string {
             border: solid 2px #315C8D;
             background-color: #E7E6E6;
             box-shadow: #888 1px 1px 4px;
-            margin: 0.4rem 0;
+            margin-top: 0.6rem;
         }
 
         .content {
