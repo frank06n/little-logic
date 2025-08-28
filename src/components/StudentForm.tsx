@@ -177,42 +177,6 @@ const StudentForm: React.FC<StudentFormProps> = ({ student, onSubmit, onCancel }
           </div>
 
           <div>
-            <label htmlFor="conduct" className="block text-sm font-medium text-gray-700 mb-2">
-              Conduct
-            </label>
-            <select
-              id="conduct"
-              name="conduct"
-              value={formData.conduct}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="Excellent">Excellent</option>
-              <option value="Good">Good</option>
-              <option value="Fair">Fair</option>
-              <option value="Satisfactory">Satisfactory</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="character" className="block text-sm font-medium text-gray-700 mb-2">
-              Character
-            </label>
-            <select
-              id="character"
-              name="character"
-              value={formData.character}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="Excellent">Excellent</option>
-              <option value="Good">Good</option>
-              <option value="Fair">Fair</option>
-              <option value="Satisfactory">Satisfactory</option>
-            </select>
-          </div>
-
-          <div>
             <label htmlFor="leavingDate" className="block text-sm font-medium text-gray-700 mb-2">
               Leaving Date (Optional)
             </label>
