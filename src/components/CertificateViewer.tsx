@@ -31,13 +31,12 @@ const CertificateViewer: React.FC<CertificateViewerProps> = ({ student, school, 
         admissionClass: student.admissionClass,
         currentClass: student.currentClass,
         dob: new Date(student.dob),
-        conduct: student.conduct,
-        character: student.character,
         place: school.place,
         issueDate: new Date(),
         leavingDate: student.leavingDate ? new Date(student.leavingDate) : null,
         headSignatureText: "Signature of Head Teacher",
         gender: student.gender,
+        bspId: student.bspId,
     };
 
     const certificateHTML = useMemo(() => generateCertificate(certificateData), [certificateData]);

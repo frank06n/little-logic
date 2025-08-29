@@ -16,11 +16,10 @@ const StudentForm: React.FC<StudentFormProps> = ({ student, onSubmit, onCancel }
     admissionClass: student?.admissionClass || '',
     currentClass: student?.currentClass || '',
     dob: student?.dob || '',
-    conduct: student?.conduct || 'Good',
-    character: student?.character || 'Good',
     gender: student?.gender || 'male' as Gender,
     serialNo: student?.serialNo || '',
     leavingDate: student?.leavingDate || null,
+    bspId: student?.bspId || '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -187,6 +186,21 @@ const StudentForm: React.FC<StudentFormProps> = ({ student, onSubmit, onCancel }
               value={formData.leavingDate || ''}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="bspId" className="block text-sm font-medium text-gray-700 mb-2">
+              Student's ID of BSP (Optional)
+            </label>
+            <input
+              type="text"
+              id="bspId"
+              name="bspId"
+              value={formData.bspId}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter student's ID of BSP"
             />
           </div>
         </div>

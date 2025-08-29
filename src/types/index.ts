@@ -18,13 +18,12 @@ export type CertificateData = {
   admissionClass: string;
   currentClass: string;
   dob: Date;
-  conduct: string;
-  character: string;
   place: string;
   issueDate: Date;
   leavingDate: Date | null;
   headSignatureText: string;
   gender: Gender;
+  bspId: string;
 };
 
 export interface Student {
@@ -35,11 +34,10 @@ export interface Student {
   admissionClass: string;
   currentClass: string;
   dob: string;
-  conduct: string;
-  character: string;
   gender: Gender;
   serialNo: string;
   leavingDate?: string | null;
+  bspId: string;
 }
 
 export interface School {

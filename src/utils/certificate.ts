@@ -132,6 +132,7 @@ function generateCertificateStructure(data: CertificateData): string {
       <div>Dated : ${issueDateStr}</div>
     </div>
     <div class="date">
+      <div>Student's ID of BSP : ${data.bspId || ''}</div>
       <div>Date of Admission : ${admissionDateStr}</div>
       <div>Date of Leaving : ${leavingDateStr}</div>
     </div>
@@ -320,20 +321,18 @@ export function generateCertificate(data: CertificateData): string {
         }
 
         .dated {
-
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.6rem;
             margin-bottom: 1rem;
         }
 
         .date {
             color: #001F5F;
             font-weight: bold;
-
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.6rem;
             margin-bottom: 1rem;
         }
 
