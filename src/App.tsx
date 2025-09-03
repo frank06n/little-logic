@@ -1,10 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
-const AppContent: React.FC = () => {
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import { Navigation } from "./components/Navigation";
+import { HeroSection } from "./components/HeroSection";
+import { SchoolDescription } from "./components/SchoolDescription";
+
+// Wrapper for protecting private routes
+const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { teacher, isLoading } = useAuth();
 
   if (isLoading) {
@@ -15,14 +20,50 @@ const AppContent: React.FC = () => {
     );
   }
 
-  return teacher ? <Dashboard /> : <Login />;
+  return teacher ? <>{children}</> : <Navigate to="/login" replace />;
 };
+
+// Home page (public)
+const Home: React.FC = () => (
+  <div className="min-h-screen">
+    <Navigation />
+    <main>
+      <HeroSection />
+      <SchoolDescription />
+    </main>
+  </div>
+);
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <AppContent />
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected routes */}
+          <Route
+            path="/students/certificate"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/students/details"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Catch-all route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </AuthProvider>
     </Router>
   );
