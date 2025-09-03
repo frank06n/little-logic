@@ -104,7 +104,7 @@ export const HeroSection = () => {
                     </div>
 
                     {/* School Logo */}
-                    <div className="flex flex-col sm:flex-row justify-center opacity-75 backdrop-blur-3xl items-center rounded-xl gap-4 sm:gap-8 md:gap-12 bg-white drop-shadow-2xl mb-8 p-4 sm:p-6">
+                    {/* <div className="flex flex-col sm:flex-row justify-center opacity-75 backdrop-blur-3xl items-center rounded-xl gap-4 sm:gap-8 md:gap-12 bg-white drop-shadow-2xl mb-8 p-4 sm:p-6">
                         <img
                             src={schoolLogo}
                             alt="Dewanganj Primary School Logo"
@@ -115,7 +115,7 @@ export const HeroSection = () => {
                             alt="School Emblem - 100 Years of Excellence"
                             className="h-16 sm:h-20 md:h-24 lg:h-32"
                         />
-                    </div>
+                    </div> */}
 
 
                     {/* Call to Action */}
